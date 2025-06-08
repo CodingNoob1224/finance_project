@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-!05k*p%gjhp6r=h5^0(9&46818p%q+nw-c+j%yz_mhc=5c_s40
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['yunfinance.onrender.com']
+ALLOWED_HOSTS = []
 
 
 # Application definition
