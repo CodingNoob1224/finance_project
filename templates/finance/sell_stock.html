@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}賣出股票{% endblock %}
+{% block content %}
+<h3>賣出 {{ stock.stock_name }}</h3>
+<form method="POST">
+  {% csrf_token %}
+  <p>可用張數：{{ stock.shares }}</p>
+  <p>要賣幾張：<input type="number" name="sell_shares" required></p>
+  <p>賣出價格（每張）：<input type="number" step="0.01" name="sell_price" required></p>
+  <button type="submit">確認賣出</button>
+</form>
+{% endblock %}

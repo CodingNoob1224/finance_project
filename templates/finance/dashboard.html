@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block title %}儀表板{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h3 class="mb-4">資產總覽</h3>
+
+  <div class="row mb-3">
+    <div class="col-md-4">
+      <div class="card p-3">
+        <h5>帳戶餘額(活存)</h5>
+        <p class="fw-bold text-success">NT${{ user.account_balance }}</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card p-3">
+        <h5>定存金額</h5>
+        <p class="fw-bold text-primary">NT${{ total_fixed }}</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card p-3">
+        <h5>股票資產</h5>
+        <p class="fw-bold text-warning">NT${{ total_stock }}</p>
+      </div>
+    </div>
+  </div>
+
+  <h4 class="mt-4">總資產：<span class="text-danger fw-bold">NT${{ total_asset }}</span></h4>
+
+  <hr class="my-4">
+
+  <h3 class="mb-3">定存紀錄</h3>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>金額</th><th>利率</th><th>開始</th><th>結束</th><th>狀態</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for fd in fixed_deposits %}
+      <tr>
+        <td>{{ fd.amount }}</td>
+        <td>{{ fd.interest_rate }}%</td>
+        <td>{{ fd.start_date }}</td>
+        <td>{{ fd.end_date }}</td>
+        <td>
+          {% if fd.matured %}
+            <span class="badge bg-success">已到期</span>
+          {% else %}
+            <span class="badge bg-warning text-dark">進行中</span>
+          {% endif %}
+        </td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="5" class="text-center">尚無定存資料</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <h3 class="mt-5 mb-3">股票紀錄</h3>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>代號</th><th>名稱</th><th>張數</th><th>總成本</th><th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for stock in stocks %}
+      <tr>
+        <td>{{ stock.stock_symbol }}</td>
+        <td>{{ stock.stock_name }}</td>
+        <td>{{ stock.shares }}</td>
+        <td>{{ stock.total_cost }}</td>
+        <td>
+          <a class="btn btn-sm btn-danger" href="{% url 'sell_stock' stock.id %}">賣出</a>
+          <a class="btn btn-sm btn-success" href="{% url 'analyze_stock' stock.id %}" >AI 分析</a>
+        </td>
+      </tr>
+      {% empty %}
+      <tr><td colspan="5" class="text-center">尚無股票資料</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

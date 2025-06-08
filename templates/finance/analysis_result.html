@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}股票分析結果{% endblock %}
+{% block content %}
+<div class="card shadow-sm p-4">
+  <h3 class="mb-3">股票分析結果</h3>
+  <p><strong>股票代號：</strong>{{ stock.stock_symbol }}</p>
+  <p><strong>名稱：</strong>{{ stock.stock_name }}</p>
+  <p><strong>持有張數：</strong>{{ stock.shares }}</p>
+  <p><strong>總成本：</strong>NT${{ stock.total_cost }}</p>
+  <hr>
+  <h5>AI 建議 💡</h5>
+  <p style="white-space: pre-line;">{{ analysis }}</p>
+  <a class="btn btn-secondary mt-3" href="{% url 'dashboard' %}">返回儀表板</a>
+</div>
+{% endblock %}

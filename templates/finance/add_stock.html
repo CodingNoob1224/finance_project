@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}新增股票{% endblock %}
+{% block content %}
+<div class="container">
+  <h3 class="mb-4">新增股票</h3>
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-info">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+  <form method="POST">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="stock_symbol" class="form-label">股票代號</label>
+      <input type="text" name="stock_symbol" id="stock_symbol" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label for="stock_name" class="form-label">股票名稱</label>
+      <input type="text" name="stock_name" id="stock_name" class="form-control">
+    </div>
+    <div class="mb-3">
+      <label for="shares" class="form-label">張數</label>
+      <input type="number" name="shares" id="shares" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label for="total_cost" class="form-label">總成本（NT$）</label>
+      <input type="number" step="0.01" name="total_cost" id="total_cost" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary">新增股票</button>
+    <a href="{% url 'dashboard' %}" class="btn btn-secondary ms-2">取消</a>
+  </form>
+</div>
+{% endblock %}
